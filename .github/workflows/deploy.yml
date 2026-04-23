@@ -1,12 +1,23 @@
-name: Deploy to GitHub Pages
+name: Deploy SvelteKit with Bun
 
 on:
   push:
-    branches: [ main ]
+    branches: ["main"]
+  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow only one concurrent deployment to avoid conflicts
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
 jobs:
-  build:
+  build_site:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -18,13 +29,25 @@ jobs:
           bun-version: latest
 
       - name: Install dependencies
+        # No lockfile? No problem. We'll just do a standard install.
         run: bun install
 
       - name: Build
         run: bun run build
 
-      - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@v4
+      - name: Upload Artifacts
+        uses: actions/upload-pages-artifact@v3
         with:
-          folder: build
-          branch: gh-pages
+          # SvelteKit adapter-static outputs to 'build' by default
+          path: 'build/'
+
+  deploy:
+    needs: build_site
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
