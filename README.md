@@ -1,42 +1,17 @@
-# sv
+# jpaoad31.github.io
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+My personal portfolio site, rebuilt with [SvelteKit](https://kit.svelte.dev/) and [Tailwind CSS](https://tailwindcss.com/).
 
-## Creating a project
+## Project Features
+- **Modern Stack:** Built using Svelte 5 and Tailwind CSS 4.
+- **Responsive Design:** Mobile-first architecture with custom modal components.
+- **Content:** Showcases my work in mobile/iOS development, web engineering, and AI-powered tools.
 
-If you're seeing this, you've probably already done this step. Congrats!
+## Development
+This project is built using:
+- **Framework:** SvelteKit
+- **Styling:** Tailwind CSS 4
+- **Deployment:** Automatically deployed to GitHub Pages via GitHub Actions.
 
-```sh
-# create a new project
-npx sv create my-app
-```
-
-To recreate this project with the same configuration:
-
-```sh
-# recreate this project
-deno run npm:sv create --template minimal --types ts --add tailwindcss="plugins:typography" sveltekit-adapter="adapter:static" --install deno ./
-```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```sh
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```sh
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+## License
+IBM Plex fonts are used under their respective [license](static/fonts/IBM-Plex/license.txt).
