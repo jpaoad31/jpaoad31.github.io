@@ -1,11 +1,42 @@
-### John Adams's Personal Webpage
+# sv
 
----
+Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
 
-Every (CS) person needs a personal page these days, so here's one that I made for myself.
+## Creating a project
 
-This personal website is built from scratch using HTML and CSS. It uses open source fonts from the font family _IBM Plex®_ in use under the SIL Open Font License. You can learn more about it at [IBM](https://www.ibm.com/plex/).
+If you're seeing this, you've probably already done this step. Congrats!
 
-My favorite programming language is C. Most people I know from school dislike the low-level management associated with C, but I think that the lack of extra tools makes it better. Why figure out how to use a built-in list when you can spend too much time making your own version with half the functionality?
+```sh
+# create a new project
+npx sv create my-app
+```
 
-Here's the link to my webpage [https://jpaoad31.github.io](https://jpaoad31.github.io)
+To recreate this project with the same configuration:
+
+```sh
+# recreate this project
+deno run npm:sv create --template minimal --types ts --add tailwindcss="plugins:typography" sveltekit-adapter="adapter:static" --install deno ./
+```
+
+## Developing
+
+Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+
+```sh
+npm run dev
+
+# or start the server and open the app in a new browser tab
+npm run dev -- --open
+```
+
+## Building
+
+To create a production version of your app:
+
+```sh
+npm run build
+```
+
+You can preview the production build with `npm run preview`.
+
+> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
