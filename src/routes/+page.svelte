@@ -16,6 +16,15 @@
     "Math-CS major from UCSD building full-stack web apps and unique mobile experiences, with a focus on local-first design and user privacy.";
   const ogImage = `${siteUrl}/images/og-image.jpg`;
 
+  const socials = [
+    { label: "GitHub", url: "https://github.com/jpaoad31", kind: "github" },
+    {
+      label: "LinkedIn",
+      url: "https://www.linkedin.com/in/john-p-adams",
+      kind: "linkedin",
+    },
+  ];
+
   const experience = [
     { name: "Full-Stack", detail: "PostgreSQL, C#, React" },
     {
@@ -77,6 +86,19 @@
         web apps and unique <span class="text-accent font-bold">mobile</span> experiences.
         Passionate about local-first design and protecting user privacy.
       </p>
+      <div class="flex gap-3 mt-6 justify-center sm:justify-start">
+        {#each socials as social}
+          <a
+            href={social.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={social.label}
+            class="flex items-center justify-center w-10 h-10 rounded-full border border-gray-200 text-gray-500 hover:border-accent/40 hover:text-accent transition-colors"
+          >
+            {@render linkIcon(social.kind)}
+          </a>
+        {/each}
+      </div>
     </div>
   </header>
 
@@ -112,7 +134,7 @@
       {#each projects as project}
         <button
           onclick={() => openModal(project)}
-          class="group text-left p-8 rounded-3xl border border-gray-100 bg-white hover:border-accent/20 hover:shadow-2xl hover:shadow-accent/5 transition-all duration-500 flex flex-col justify-between"
+          class="group text-left p-8 rounded-3xl border border-gray-100 bg-white hover:border-accent/20 hover:shadow-2xl hover:shadow-accent/5 transition-all duration-500 flex flex-col justify-between cursor-pointer"
         >
           <div>
             <h3
@@ -170,32 +192,60 @@
         {selectedProject.detailedDesc}
       </p>
 
-      {#if selectedProject.href}
-        <div class="pt-4">
-          <a
-            href={selectedProject.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="inline-flex items-center px-8 py-3 bg-accent hover:bg-accent-dark text-white font-bold rounded-full shadow-lg shadow-accent/20 transition-all active:scale-95 group"
-          >
-            Visit {selectedProject.site}
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-5 w-5 ml-2 group-hover:translate-x-1 transition-transform"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
+      {#if selectedProject.links?.length}
+        <div class="flex flex-wrap gap-3 pt-4">
+          {#each selectedProject.links as link, i}
+            <a
+              href={link.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 px-6 py-3 font-bold rounded-full transition-all active:scale-95 {i === 0
+                ? 'bg-accent hover:bg-accent-dark text-white shadow-lg shadow-accent/20'
+                : 'border border-gray-200 text-gray-700 hover:border-accent/40 hover:text-accent'}"
             >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-              />
-            </svg>
-          </a>
+              {@render linkIcon(link.kind)}
+              {link.label}
+            </a>
+          {/each}
         </div>
       {/if}
     </div>
   {/if}
 </Modal>
+
+{#snippet linkIcon(kind: string | undefined)}
+  {#if kind === 'youtube'}
+    <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path
+        d="M23.5 6.2a3.02 3.02 0 0 0-2.12-2.14C19.5 3.55 12 3.55 12 3.55s-7.5 0-9.38.51A3.02 3.02 0 0 0 .5 6.2C0 8.09 0 12 0 12s0 3.91.5 5.8a3.02 3.02 0 0 0 2.12 2.14c1.88.51 9.38.51 9.38.51s7.5 0 9.38-.51a3.02 3.02 0 0 0 2.12-2.14C24 15.91 24 12 24 12s0-3.91-.5-5.8zM9.55 15.57V8.43L15.82 12l-6.27 3.57z"
+      />
+    </svg>
+  {:else if kind === 'github'}
+    <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path
+        d="M12 .5C5.37.5 0 5.78 0 12.29c0 5.21 3.44 9.63 8.21 11.19.6.11.82-.25.82-.56 0-.28-.01-1.02-.02-2-3.34.71-4.04-1.59-4.04-1.59-.55-1.36-1.33-1.73-1.33-1.73-1.09-.73.08-.72.08-.72 1.2.08 1.84 1.21 1.84 1.21 1.07 1.8 2.81 1.28 3.49.98.11-.76.42-1.28.76-1.57-2.67-.3-5.47-1.31-5.47-5.83 0-1.29.47-2.34 1.24-3.17-.12-.3-.54-1.52.12-3.16 0 0 1.01-.32 3.3 1.21.96-.26 1.98-.39 3-.4 1.02.01 2.04.14 3 .4 2.29-1.53 3.3-1.21 3.3-1.21.66 1.64.24 2.86.12 3.16.77.83 1.24 1.88 1.24 3.17 0 4.53-2.81 5.53-5.49 5.82.43.36.81 1.09.81 2.2 0 1.59-.01 2.87-.01 3.26 0 .31.22.68.83.56C20.56 21.92 24 17.5 24 12.29 24 5.78 18.63.5 12 .5z"
+      />
+    </svg>
+  {:else if kind === 'linkedin'}
+    <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path
+        d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"
+      />
+    </svg>
+  {:else}
+    <svg
+      class="h-5 w-5"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      aria-hidden="true"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+      />
+    </svg>
+  {/if}
+{/snippet}
