@@ -10,6 +10,12 @@
     isModalOpen = true;
   }
 
+  const siteUrl = "https://jpadams.xyz";
+  const title = "John Adams — Full-Stack & Mobile Developer";
+  const description =
+    "Math-CS major from UCSD building full-stack web apps and unique mobile experiences, with a focus on local-first design and user privacy.";
+  const ogImage = `${siteUrl}/images/og-image.jpg`;
+
   const experience = [
     { name: "Full-Stack", detail: "PostgreSQL, C#, React" },
     {
@@ -23,6 +29,27 @@
     },
   ];
 </script>
+
+<svelte:head>
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={siteUrl} />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="John Adams" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={siteUrl} />
+  <meta property="og:image" content={ogImage} />
+  <meta property="og:image:alt" content="John Adams" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={ogImage} />
+</svelte:head>
 
 <div class="max-w-4xl mx-auto px-6 py-12 sm:py-24">
   <!-- Hero Section -->
